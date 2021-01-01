@@ -29,6 +29,8 @@ import org.openhab.binding.verisure.internal.handler.VerisureMiceDetectionThingH
 import org.openhab.binding.verisure.internal.handler.VerisureSmartLockThingHandler;
 import org.openhab.binding.verisure.internal.handler.VerisureSmartPlugThingHandler;
 import org.openhab.binding.verisure.internal.handler.VerisureUserPresenceThingHandler;
+import org.openhab.binding.verisure.internal.type1.AlarmHandler;
+import org.openhab.binding.verisure.internal.type1.BridgeHandler;
 import org.openhab.core.io.net.http.HttpClientFactory;
 import org.openhab.core.thing.Bridge;
 import org.openhab.core.thing.Thing;
@@ -48,6 +50,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Jarle Hjortland - Initial contribution
  * @author Jan Gustafsson - Further development
+ * @author Riccardo De Menna - Type 1 Additions
  */
 @NonNullByDefault
 @Component(service = ThingHandlerFactory.class, configurationPid = "binding.verisure")
@@ -66,6 +69,8 @@ public class VerisureHandlerFactory extends BaseThingHandlerFactory {
         SUPPORTED_THING_TYPES.addAll(VerisureMiceDetectionThingHandler.SUPPORTED_THING_TYPES);
         SUPPORTED_THING_TYPES.addAll(VerisureEventLogThingHandler.SUPPORTED_THING_TYPES);
         SUPPORTED_THING_TYPES.addAll(VerisureGatewayThingHandler.SUPPORTED_THING_TYPES);
+        SUPPORTED_THING_TYPES.addAll(BridgeHandler.SUPPORTED_THING_TYPES);
+        SUPPORTED_THING_TYPES.addAll(AlarmHandler.SUPPORTED_THING_TYPES);
     }
 
     private final Logger logger = LoggerFactory.getLogger(VerisureHandlerFactory.class);
@@ -118,6 +123,12 @@ public class VerisureHandlerFactory extends BaseThingHandlerFactory {
         } else if (VerisureGatewayThingHandler.SUPPORTED_THING_TYPES.contains(thing.getThingTypeUID())) {
             logger.debug("Create VerisureGatewayThingHandler {}", thing.getThingTypeUID());
             thingHandler = new VerisureGatewayThingHandler(thing);
+        } else if (BridgeHandler.SUPPORTED_THING_TYPES.contains(thing.getThingTypeUID())) {
+            logger.debug("Create VerisureType1BridgeHandler {}", thing.getThingTypeUID());
+            thingHandler = new BridgeHandler((Bridge) thing, httpClient);
+        } else if (AlarmHandler.SUPPORTED_THING_TYPES.contains(thing.getThingTypeUID())) {
+            logger.debug("Create VerisureType1AlarmHandler {}", thing.getThingTypeUID());
+            thingHandler = new AlarmHandler(thing);
         } else {
             logger.debug("Not possible to create thing handler for thing {}", thing);
             thingHandler = null;

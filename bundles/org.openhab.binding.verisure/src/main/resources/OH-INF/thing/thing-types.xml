@@ -801,4 +801,168 @@
 		<state readOnly="true" pattern="%s"/>
 	</channel-type>
 
+
+	<bridge-type id="bridgeType1">
+		<label>Bridge Type1</label>
+		<description>This bridge represents a Verisure Type1 account.</description>
+		<properties>
+			<property name="vendor">Verisure</property>
+		</properties>
+		<representation-property>user</representation-property>
+		<config-description>
+			<parameter name="user" type="text" required="true">
+				<label>User</label>
+				<description>The user name used to login to the web page connector.</description>
+			</parameter>
+			<parameter name="password" type="text" required="true">
+				<label>Password</label>
+				<context>password</context>
+				<description>The password used to login to the web page connector.</description>
+			</parameter>
+			<parameter name="country" type="text" required="true">
+				<label>Country</label>
+				<description>The country for your subscription.</description>
+			</parameter>
+			<parameter name="interval" type="integer" min="2" max="60" unit="s">
+				<label>Request Interval</label>
+				<description>Interval between attempts to read request results.</description>
+				<default>3</default>
+			</parameter>
+			<parameter name="attempts" type="integer" min="1" max="10">
+				<label>Max Attempts</label>
+				<description>Max number of attempts to read a request result</description>
+				<default>10</default>
+			</parameter>
+			<parameter name="timeout" type="integer" min="1" max="3600">
+				<label>Connection Timeout</label>
+				<description>Max number of idle seconds before connection logout</description>
+				<default>300</default>
+			</parameter>
+		</config-description>
+	</bridge-type>
+
+	<thing-type id="alarmType1">
+		<supported-bridge-type-refs>
+			<bridge-type-ref id="bridgeType1"/>
+		</supported-bridge-type-refs>
+		<label>Alarm Type1</label>
+		<description>A Verisure Type1 Alarm installation.</description>
+		<channels>
+			<channel id="status" typeId="statusType1"/>
+			<channel id="perimeter" typeId="perimeterType1"/>
+			<channel id="svr" typeId="svrType1"/>
+			<channel id="installationName" typeId="installationNameType1"/>
+			<channel id="codewordVerisure" typeId="codewordVerisureType1"/>
+			<channel id="codewordCustomer" typeId="codewordCustomerType1"/>
+			<channel id="codewordCoercion" typeId="codewordCoercionType1"/>
+			<channel id="emails" typeId="emailsType1"/>
+			<channel id="phones" typeId="phonesType1"/>
+			<channel id="devices" typeId="devicesType1"/>
+		</channels>
+		<properties>
+			<property name="vendor">Verisure</property>
+		</properties>
+		<representation-property>installation</representation-property>
+		<config-description>
+			<parameter name="installation" type="text" required="true">
+				<label>Installation ID</label>
+				<description>Installation ID</description>
+			</parameter>
+			<parameter name="panel" type="text">
+				<label>Panel</label>
+				<description>Panel.</description>
+				<default>SDVFAST</default>
+			</parameter>
+			<parameter name="refresh" type="integer" unit="m">
+				<label>Refresh Interval</label>
+				<description>Specifies the refresh interval in minutes. A value of 0 disables the periodic refresh.
+				</description>
+				<default>0</default>
+			</parameter>
+		</config-description>
+	</thing-type>
+
+	<channel-type id="statusType1">
+		<item-type>String</item-type>
+		<label>Status</label>
+		<description>Indoor alarm status</description>
+		<state>
+			<options>
+				<option value="DISARMED">DISARMED</option>
+				<option value="ARMED_ALL">ARMED ALL</option>
+				<option value="ARMED_DAY">ARMED DAY</option>
+				<option value="ARMED_NIGHT">ARMED NIGHT</option>
+			</options>
+		</state>
+		<autoUpdatePolicy>veto</autoUpdatePolicy>
+	</channel-type>
+
+	<channel-type id="perimeterType1">
+		<item-type>String</item-type>
+		<label>Perimeter</label>
+		<description>Perimeter Alarm Status</description>
+		<state>
+			<options>
+				<option value="DISARMED">DISARMED</option>
+				<option value="ARMED_PERIMETER">ARMED</option>
+			</options>
+		</state>
+		<autoUpdatePolicy>veto</autoUpdatePolicy>
+	</channel-type>
+
+	<channel-type id="svrType1">
+		<item-type>String</item-type>
+		<label>SVR</label>
+		<description>SVR</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="installationNameType1">
+		<item-type>String</item-type>
+		<label>Installation</label>
+		<description>Installation Name</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="codewordVerisureType1">
+		<item-type>String</item-type>
+		<label>Codeword Verisure</label>
+		<description>Codeword for Verisure authentication</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="codewordCustomerType1">
+		<item-type>String</item-type>
+		<label>Codeword Customer</label>
+		<description>Codeword for customer authentication</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="codewordCoercionType1">
+		<item-type>String</item-type>
+		<label>Codeword Coercion</label>
+		<description>Codeword to signal customer coercion</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="emailsType1">
+		<item-type>String</item-type>
+		<label>Emails</label>
+		<description>List of emails</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="phonesType1">
+		<item-type>String</item-type>
+		<label>Phones</label>
+		<description>List of phones</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
+
+	<channel-type id="devicesType1">
+		<item-type>String</item-type>
+		<label>Devices</label>
+		<description>List of devices</description>
+		<state readOnly="true" pattern="%s"/>
+	</channel-type>
 </thing:thing-descriptions>

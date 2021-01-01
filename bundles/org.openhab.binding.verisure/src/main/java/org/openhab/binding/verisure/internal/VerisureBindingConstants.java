@@ -21,6 +21,7 @@ import org.openhab.core.thing.ThingTypeUID;
  *
  * @author l3rum - Initial contribution
  * @author Jan Gustafsson - Furher development
+ * @author Riccardo De Menna - Type 1 Additions
  */
 @NonNullByDefault
 public class VerisureBindingConstants {
@@ -43,6 +44,8 @@ public class VerisureBindingConstants {
     public static final ThingTypeUID THING_TYPE_MICE_DETECTION = new ThingTypeUID(BINDING_ID, "miceDetection");
     public static final ThingTypeUID THING_TYPE_EVENT_LOG = new ThingTypeUID(BINDING_ID, "eventLog");
     public static final ThingTypeUID THING_TYPE_GATEWAY = new ThingTypeUID(BINDING_ID, "gateway");
+    public static final ThingTypeUID THING_TYPE_BRIDGE_TYPE1 = new ThingTypeUID(BINDING_ID, "bridgeType1");
+    public static final ThingTypeUID THING_TYPE_ALARM_TYPE1 = new ThingTypeUID(BINDING_ID, "alarmType1");
 
     // List of all Channel ids
     public static final String CHANNEL_NUMERIC_STATUS = "numericStatus";
